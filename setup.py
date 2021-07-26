@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import re
 import sys
 
 try:
@@ -17,8 +18,21 @@ if sys.argv[-1] == "tag":
     os.system("git push --tags")
     sys.exit()
 
+if sys.argv[-1] == 'publish':
+    try:
+        import wheel
+    except ImportError:
+        print('Wheel library missing. Please run "pip install wheel"')
+        sys.exit()
+    os.system('python setup.py sdist upload')
+    os.system('python setup.py bdist_wheel upload')
+    sys.exit()
+
 with open("README.rst") as readme_file:
     long_description = readme_file.read()
+
+with open('CHANGELOG.md') as changelog:
+    changelog = changelog.read()
 
 setup(
     name="cookiecutter-django",

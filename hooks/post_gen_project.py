@@ -14,8 +14,6 @@ import random
 import shutil
 import string
 
-from cookiecutter.main import cookiecutter
-
 try:
     # Inspired by
     # https://github.com/django/django/blob/master/django/utils/crypto.py
