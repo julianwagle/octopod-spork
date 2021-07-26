@@ -1,17 +1,17 @@
 {
   "project_name": "Example",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
-  "description": "An Awesome Example!",
+  "description": "Behold the magificent {{ cookiecutter.project_name.upper()}}!!!",
   "author_name": "Jayquellin Octopod",
-  "domain_name": "example.com",
-  "email": "{{ cookiecutter.author_name.lower()|replace(' ', '.') }}@example.com",
+  "domain_name": "{{ cookiecutter.project_name.lower()}}.com",
+  "email": "{{ cookiecutter.author_name.lower()|replace(' ', '.') }}@{{ cookiecutter.domain_name.lower() }}",
   "version": "0.1.0",
   "open_source_license": [
+    "Not open source",
     "MIT",
     "BSD",
     "GPLv3",
-    "Apache Software License 2.0",
-    "Not open source"
+    "Apache Software License 2.0"
   ],
   "timezone": "America/Chicago",
   "windows": "n",
@@ -24,12 +24,12 @@
     "10.16"
   ],
   "js_task_runner": [
-    "None",
-    "Gulp"
+    "Gulp",
+    "None"
   ],
   "cloud_provider": [
-    "AWS",
     "GCP",
+    "AWS",
     "None"
   ],
   "mail_service": [
