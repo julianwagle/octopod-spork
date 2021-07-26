@@ -21,10 +21,10 @@ cookiecutter(
     replay=False, overwrite_if_exists=True, output_dir='../',
     checkout=None, no_input=True, extra_context={
         'project_name': '{{ cookiecutter.project_name }}',
-        'repo_name': '{{ cookiecutter.repo_name }}',
+        'repo_name': '{{ cookiecutter.project_slug }}',
         'repo_owner': '{{ cookiecutter.author_name }}',
-        'static_root': '{{ cookiecutter.project_dir }}/static/{{ cookiecutter.project_dir }}',
-        'production_output_path': '{{ cookiecutter.project_dir }}/static/{{ cookiecutter.project_dir }}/dist/',
+        'static_root': '{{ cookiecutter.project_slug }}/static',
+        'production_output_path': '{{ cookiecutter.project_slug }}/static/dist/',
         'author_name': '{{ cookiecutter.author_name }}',
         'description': '{{ cookiecutter.description }}',
         'version': '{{ cookiecutter.version }}',
