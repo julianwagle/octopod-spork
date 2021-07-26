@@ -14,24 +14,24 @@ import random
 import shutil
 import string
 
-from cookiecutter.main import cookiecutter
+# from cookiecutter.main import cookiecutter
 
-cookiecutter(
-    'git@github.com:goldhand/cookiecutter-webpack.git',
-    replay=False, overwrite_if_exists=True, output_dir='../',
-    checkout=None, no_input=True, extra_context={
-        'project_name': '{{ cookiecutter.project_name }}',
-        'repo_name': '{{ cookiecutter.project_slug }}',
-        'repo_owner': '{{ cookiecutter.author_name }}',
-        'static_root': '{{ cookiecutter.project_slug }}/static',
-        'production_output_path': '{{ cookiecutter.project_slug }}/static/dist/',
-        'author_name': '{{ cookiecutter.author_name }}',
-        'description': '{{ cookiecutter.description }}',
-        'version': '{{ cookiecutter.version }}',
-        'existing_project': 'y',
-        'css_extension': 'sass',
-        'use_ejs': 'n'
-})
+# cookiecutter(
+#     'git@github.com:goldhand/cookiecutter-webpack.git',
+#     replay=False, overwrite_if_exists=True, output_dir='../',
+#     checkout=None, no_input=True, extra_context={
+#         'project_name': '{{ cookiecutter.project_name }}',
+#         'repo_name': '{{ cookiecutter.project_slug }}',
+#         'repo_owner': '{{ cookiecutter.author_name }}',
+#         'static_root': '{{ cookiecutter.project_slug }}/static',
+#         'production_output_path': '{{ cookiecutter.project_slug }}/static/dist/',
+#         'author_name': '{{ cookiecutter.author_name }}',
+#         'description': '{{ cookiecutter.description }}',
+#         'version': '{{ cookiecutter.version }}',
+#         'existing_project': 'y',
+#         'css_extension': 'sass',
+#         'use_ejs': 'n'
+# })
 
 
 try:
