@@ -27,3 +27,5 @@ production-ready Django projects quickly.
 
 
 Octopod Spork is a spin off of Cookiecutter Django. It is customized for my workflow and includes features such as gis tools, web scraping tools, data science tools, celery voulumes, and a bare bones react app on port 3000. Enjoy!
+
+I havent tested without docker or drf. However, if you use docker and drf this will fire up and run like a champ with nothing more than a simple docker-compose -f local.yml up
