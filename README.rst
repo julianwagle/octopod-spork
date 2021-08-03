@@ -28,7 +28,6 @@ Please sign the petition_ for a spork emoji
 Powered by Cookiecutter_, Octopod Spork is a framework for jumpstarting
 production-ready Django projects quickly.
 
-* Documentation: https://cookiecutter-django.readthedocs.io/en/latest/
 
 Overview
 ---------
