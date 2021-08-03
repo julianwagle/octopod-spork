@@ -49,7 +49,7 @@ Finally, move to the root directory and enter the following:
 You should now be able to navigate to either port 8000 for a classic Django project or port 3000 for a React based front-end. Enjoy!
 
 
-Issues
-------
+Troubleshooting
+---------------
 
 The cookiecutter options will ask you if you want to use Docker or D.R.F. You don't really have an option with this repo. I just haven't removed the questions yet. The default options are yes so just don't go out of yoou way to mess it up and everything will be great.
