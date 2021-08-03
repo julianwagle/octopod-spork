@@ -1,5 +1,8 @@
-Octopod Spork
+Octopod Spork 🐙
 ===================
+
+Please sign the petitition for a [spork emjoi](https://www.change.org/p/apple-we-as-a-union-ad-people-need-a-spork-emoji-now)
+
 
 .. image:: https://img.shields.io/github/workflow/status/pydanny/cookiecutter-django/CI/master
     :target: https://github.com/pydanny/cookiecutter-django/actions?query=workflow%3ACI
