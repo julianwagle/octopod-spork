@@ -25,7 +25,30 @@ production-ready Django projects quickly.
 
 * Documentation: https://cookiecutter-django.readthedocs.io/en/latest/
 
+Overview
+---------
+Octopod Spork is a spin off of Cookiecutter Django. It is customized for my workflow and includes features such as gis tools, web scraping tools, data science tools, celery voulumes, and a bare bones react app.
 
-Octopod Spork is a spin off of Cookiecutter Django. It is customized for my workflow and includes features such as gis tools, web scraping tools, data science tools, celery voulumes, and a bare bones react app on port 3000. Enjoy!
+Usage
+------
 
-I havent tested without docker or drf. However, if you use docker and drf this will fire up and run like a champ with nothing more than a simple docker-compose -f local.yml up
+Let's pretend you want to create a Django project called "redditclone". Rather than using ``startproject``
+and then editing the results to include your name, email, and various configuration issues that always get forgotten until the worst possible moment, get cookiecutter_ to do all the work.
+
+First, get Cookiecutter. Trust me, it's awesome::
+
+    $ pip install "cookiecutter>=1.7.0"
+
+Now run it against this repo::
+
+    $ cookiecutter https://github.com/julianwagle/octopod-spork
+
+You'll be prompted for some values. Provide them, then a project will be created for you.
+
+Finally, move to the root directory and enter the following:
+
+    $ docker-compose -f local.yml up
+    
+You should now be able to navigate to either port 8000 for a classic Django project or port 3000 for a React based front-end. Enjoy!
+
+
