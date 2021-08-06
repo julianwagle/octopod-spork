@@ -44,7 +44,6 @@
     "Other SMTP"
   ],
   "use_async": "y",
-  "use_drf": "y",
   "custom_bootstrap_compilation": "y",
   "use_compressor": "y",
   "use_celery": "y",
