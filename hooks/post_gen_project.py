@@ -342,15 +342,9 @@ def main():
     if "{{ cookiecutter.use_pycharm }}".lower() == "n":
         remove_pycharm_files()
 
-    if "{{ cookiecutter.use_docker }}".lower() == "y":
-        remove_utility_files()
-    else:
-        remove_docker_files()
+    remove_utility_files()
 
-    if (
-        "{{ cookiecutter.use_docker }}".lower() == "y"
-        and "{{ cookiecutter.cloud_provider}}".lower() != "aws"
-    ):
+    if "{{ cookiecutter.cloud_provider}}".lower() != "aws":
         remove_aws_dockerfile()
 
     if "{{ cookiecutter.use_heroku }}".lower() == "n":
@@ -358,28 +352,15 @@ def main():
     elif "{{ cookiecutter.use_compressor }}".lower() == "n":
         remove_heroku_build_hooks()
 
-    if (
-        "{{ cookiecutter.use_docker }}".lower() == "n"
-        and "{{ cookiecutter.use_heroku }}".lower() == "n"
-    ):
-        if "{{ cookiecutter.keep_local_envs_in_vcs }}".lower() == "y":
-            print(
-                INFO + ".env(s) are only utilized when Docker Compose and/or "
-                "Heroku support is enabled so keeping them does not "
-                "make sense given your current setup." + TERMINATOR
-            )
-        remove_envs_and_associated_files()
-    else:
-        append_to_gitignore_file(".env")
-        append_to_gitignore_file(".envs/*")
-        if "{{ cookiecutter.keep_local_envs_in_vcs }}".lower() == "y":
-            append_to_gitignore_file("!.envs/.local/")
+    append_to_gitignore_file(".env")
+    append_to_gitignore_file(".envs/*")
+    if "{{ cookiecutter.keep_local_envs_in_vcs }}".lower() == "y":
+        append_to_gitignore_file("!.envs/.local/")
 
     if "{{ cookiecutter.js_task_runner}}".lower() == "none":
         remove_gulp_files()
         remove_packagejson_file()
-        if "{{ cookiecutter.use_docker }}".lower() == "y":
-            remove_node_dockerfile()
+        remove_node_dockerfile()
 
     if "{{ cookiecutter.cloud_provider}}".lower() == "none":
         print(
@@ -390,8 +371,7 @@ def main():
 
     if "{{ cookiecutter.use_celery }}".lower() == "n":
         remove_celery_files()
-        if "{{ cookiecutter.use_docker }}".lower() == "y":
-            remove_celery_compose_dirs()
+        remove_celery_compose_dirs()
 
     if "{{ cookiecutter.ci_tool }}".lower() != "travis":
         remove_dottravisyml_file()

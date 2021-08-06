@@ -43,9 +43,6 @@ windows:
 use_pycharm:
     Indicates whether the project should be configured for development with PyCharm_.
 
-use_docker:
-    Indicates whether the project should be configured to use Docker_ and `Docker Compose`_.
-
 postgresql_version:
     Select a PostgreSQL_ version to use. The choices are:
 

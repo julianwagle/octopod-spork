@@ -17,7 +17,6 @@
   "timezone": "America/Chicago",
   "windows": "n",
   "use_pycharm": "n",
-  "use_docker": "y",
   "postgresql_version": [
     "13.2",
     "12.6",

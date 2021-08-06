@@ -25,14 +25,9 @@ CACHES = {
 
 # EMAIL
 # ------------------------------------------------------------------------------
-{% if cookiecutter.use_mailhog == 'y' and cookiecutter.use_docker == 'y' -%}
+{% if cookiecutter.use_mailhog == 'y'  -%}
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-host
 EMAIL_HOST = env("EMAIL_HOST", default="mailhog")
-# https://docs.djangoproject.com/en/dev/ref/settings/#email-port
-EMAIL_PORT = 1025
-{%- elif cookiecutter.use_mailhog == 'y' and cookiecutter.use_docker == 'n' -%}
-# https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = "localhost"
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 EMAIL_PORT = 1025
 {%- else -%}
@@ -63,7 +58,6 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
-{% if cookiecutter.use_docker == 'y' -%}
 if env("USE_DOCKER") == "yes":
     import socket
 
@@ -77,7 +71,6 @@ if env("USE_DOCKER") == "yes":
         # The node container isn't started (yet?)
         pass
     {%- endif %}
-{%- endif %}
 
 # django-extensions
 # ------------------------------------------------------------------------------
@@ -87,10 +80,6 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 
 # Celery
 # ------------------------------------------------------------------------------
-{% if cookiecutter.use_docker == 'n' -%}
-# http://docs.celeryproject.org/en/latest/userguide/configuration.html#task-always-eager
-CELERY_TASK_ALWAYS_EAGER = True
-{%- endif %}
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#task-eager-propagates
 CELERY_TASK_EAGER_PROPAGATES = True
 
