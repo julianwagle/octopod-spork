@@ -96,6 +96,8 @@ Please check `cookiecutter-django Docker documentation`_ for more details how to
 
 With MailHog running, to view messages that are sent by your application, open your browser and go to ``http://127.0.0.1:8025``
 
+{%- endif %}
+
 {%- if cookiecutter.use_sentry == "y" %}
 
 Sentry
@@ -144,3 +146,4 @@ Bootstrap's javascript as well as its dependencies is concatenated into a single
 .. _in the bootstrap source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
 .. _Bootstrap docs: https://getbootstrap.com/docs/4.1/getting-started/theming/
 
+{%- endif %}
