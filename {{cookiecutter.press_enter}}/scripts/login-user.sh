@@ -11,14 +11,14 @@ cat 'users.txt' | while read l; do
     if [[ $l =~ $re ]]; then
       email="${BASH_REMATCH[2]}"
     fi
-    key="password1"
+    key="password"
     re="\"($key)\": \"([^\"]*)\""
     if [[ $l =~ $re ]]; then
-      password1="${BASH_REMATCH[2]}"
+      password="${BASH_REMATCH[2]}"
     fi
   fi
   echo "$email"
-  echo "$password1"
-  USER='{"email": "'$email'", "password": "'$password1'"}'
+  echo "$password"
+  USER='{"email": "'$email'", "password": "'$password'"}'
   curl -H "Content-type: application/json" -X POST -d "$USER" http://localhost:8000/api/users/login/
 done

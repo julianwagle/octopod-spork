@@ -10,6 +10,8 @@ echo "Password:" $PASS
 
 curl -H "Content-type: application/json" -X POST -d "$USER" http://localhost:8000/api/users/
 
+USER_CLEAN='{"email": "'$NAME'@example.com", "username": "'$NAME'", "password": "'$PASS'"}'
+
 filename='users.txt'
 
-echo ''$USER'' >> $filename
+echo ''$USER_CLEAN'' >> $filename

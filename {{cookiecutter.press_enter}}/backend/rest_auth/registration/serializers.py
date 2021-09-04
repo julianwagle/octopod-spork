@@ -19,7 +19,7 @@ try:
 except ImportError:
     raise ImportError('allauth needs to be added to INSTALLED_APPS.')
 
-REPEAT=settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE
+REPEAT_PWORD=settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE
 
 
 class SocialAccountSerializer(serializers.ModelSerializer):
@@ -201,7 +201,7 @@ class RegisterSerializer(serializers.Serializer):
         required=allauth_settings.USERNAME_REQUIRED,
     )
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
-    if REPEAT:
+    if REPEAT_PWORD:
         password1 = serializers.CharField(write_only=True)
         password2 = serializers.CharField(write_only=True)
     else:
@@ -224,7 +224,7 @@ class RegisterSerializer(serializers.Serializer):
         return get_adapter().clean_password(password)
 
     def validate(self, data):
-        if REPEAT:
+        if REPEAT_PWORD:
             if data['password1'] != data['password2']:
                 raise serializers.ValidationError(_("The two password fields didn't match."))
         return data
@@ -233,7 +233,7 @@ class RegisterSerializer(serializers.Serializer):
         pass
 
     def get_cleaned_data(self):
-        if REPEAT:
+        if REPEAT_PWORD:
             return {
                 'username': self.validated_data.get('username', ''),
                 'password1': self.validated_data.get('password1', ''),
@@ -251,7 +251,7 @@ class RegisterSerializer(serializers.Serializer):
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
         user = adapter.save_user(request, user, self, commit=False)
-        if REPEAT:
+        if REPEAT_PWORD:
             try:
                 adapter.clean_password(self.cleaned_data['password1'], user=user)
             except DjangoValidationError as exc:
