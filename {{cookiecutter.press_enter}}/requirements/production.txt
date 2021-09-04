@@ -1,0 +1,12 @@
+# PRECAUTION: avoid production dependencies that aren't in development
+
+-r base.txt
+
+gunicorn==20.1.0  # https://github.com/benoitc/gunicorn
+psycopg2==2.9.1  # https://github.com/psycopg/psycopg2
+Collectfast==2.2.0  # https://github.com/antonagestam/collectfast
+{%- if cookiecutter.use_sentry == "y" %}
+sentry-sdk==1.3.0  # https://github.com/getsentry/sentry-python
+{%- endif %}
+
+django-storages[google]==1.11.1  # https://github.com/jschneier/django-storages

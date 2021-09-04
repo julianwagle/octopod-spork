@@ -1,0 +1,36 @@
+{
+  "author_name": "Anonymous Human",
+  "domain_name": "example.com",
+  "server_ip": "40.114.177.156",
+  "timezone": "America/Chicago",
+  "open_source_license": [
+    "Not open source",
+    "MIT",
+    "BSD",
+    "GPLv3",
+    "Apache Software License 2.0"
+  ],
+  "mail_service": [
+    "Mailgun",
+    "Mailjet",
+    "Mandrill",
+    "Postmark",
+    "SendinBlue",
+    "SparkPost",
+    "Other SMTP"
+  ],
+  "ci_tool": [
+    "None",
+    "Travis",
+    "Gitlab",
+    "Github"
+  ],
+  "use_mailhog": "y",
+  "use_sentry": "y",
+  "use_heroku": "y",
+  "use_postgis": "y",
+  "press_enter": "backend",
+  "_copy_without_render": [
+    "*templates"
+  ]
+}
