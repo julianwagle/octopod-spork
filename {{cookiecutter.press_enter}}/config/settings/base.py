@@ -292,7 +292,7 @@ SOCIALACCOUNT_ADAPTER = "backend.users.adapters.SocialAccountAdapter"
 # personal pet peeves
 LOGOUT_ON_PASSWORD_CHANGE = False
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
