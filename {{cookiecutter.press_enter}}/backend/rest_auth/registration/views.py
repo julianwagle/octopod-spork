@@ -30,11 +30,16 @@ from backend.rest_auth.views import LoginView
 
 from .app_settings import RegisterSerializer, register_permission_classes
 
+REPEAT=settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE
 
-sensitive_post_parameters_m = method_decorator(
-    sensitive_post_parameters('password1', 'password2'),
-)
-
+if REPEAT:
+    sensitive_post_parameters_m = method_decorator(
+        sensitive_post_parameters('password1', 'password2'),
+    )
+else:
+    sensitive_post_parameters_m = method_decorator(
+        sensitive_post_parameters('password'),
+    )  
 
 class RegisterView(CreateAPIView):
     serializer_class = RegisterSerializer

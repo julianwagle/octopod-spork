@@ -8,7 +8,7 @@ echo "Username:" $NAME
 echo "Email:" $NAME"@example.com"
 echo "Password:" $PASS
 
-curl -H "Content-type: application/json" -X POST -d "$USER" http://localhost:8000/api/registration/
+curl -H "Content-type: application/json" -X POST -d "$USER" http://localhost:8000/api/users/
 
 filename='users.txt'
 

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.http import HttpRequest
@@ -17,6 +18,8 @@ try:
     from allauth.utils import email_address_exists, get_username_max_length
 except ImportError:
     raise ImportError('allauth needs to be added to INSTALLED_APPS.')
+
+REPEAT=settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE
 
 
 class SocialAccountSerializer(serializers.ModelSerializer):
@@ -198,8 +201,11 @@ class RegisterSerializer(serializers.Serializer):
         required=allauth_settings.USERNAME_REQUIRED,
     )
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
-    password1 = serializers.CharField(write_only=True)
-    password2 = serializers.CharField(write_only=True)
+    if REPEAT:
+        password1 = serializers.CharField(write_only=True)
+        password2 = serializers.CharField(write_only=True)
+    else:
+        password = serializers.CharField(write_only=True)
 
     def validate_username(self, username):
         username = get_adapter().clean_username(username)
@@ -218,31 +224,47 @@ class RegisterSerializer(serializers.Serializer):
         return get_adapter().clean_password(password)
 
     def validate(self, data):
-        if data['password1'] != data['password2']:
-            raise serializers.ValidationError(_("The two password fields didn't match."))
+        if REPEAT:
+            if data['password1'] != data['password2']:
+                raise serializers.ValidationError(_("The two password fields didn't match."))
         return data
 
     def custom_signup(self, request, user):
         pass
 
     def get_cleaned_data(self):
-        return {
-            'username': self.validated_data.get('username', ''),
-            'password1': self.validated_data.get('password1', ''),
-            'email': self.validated_data.get('email', ''),
-        }
+        if REPEAT:
+            return {
+                'username': self.validated_data.get('username', ''),
+                'password1': self.validated_data.get('password1', ''),
+                'email': self.validated_data.get('email', ''),
+            }
+        else:
+            return {
+                'username': self.validated_data.get('username', ''),
+                'password': self.validated_data.get('password', ''),
+                'email': self.validated_data.get('email', ''),
+            }
 
     def save(self, request):
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
         user = adapter.save_user(request, user, self, commit=False)
-        try:
-            adapter.clean_password(self.cleaned_data['password1'], user=user)
-        except DjangoValidationError as exc:
-            raise serializers.ValidationError(
-                detail=serializers.as_serializer_error(exc)
-            )
+        if REPEAT:
+            try:
+                adapter.clean_password(self.cleaned_data['password1'], user=user)
+            except DjangoValidationError as exc:
+                raise serializers.ValidationError(
+                    detail=serializers.as_serializer_error(exc)
+                )
+        else:
+            try:
+                adapter.clean_password(self.cleaned_data['password'], user=user)
+            except DjangoValidationError as exc:
+                raise serializers.ValidationError(
+                    detail=serializers.as_serializer_error(exc)
+                )
         user.save()
         self.custom_signup(request, user)
         setup_user_email(request, user, [])

@@ -7,26 +7,35 @@ from django.urls import path
 from django.conf.urls import include
 from django.views.generic import RedirectView
 
+from backend.rest_auth.views import ( 
+    PasswordResetView,
+    PasswordResetConfirmView,
+    LoginView,
+    LogoutView,
+    UserDetailsView,
+    PasswordChangeView
+)
+from backend.rest_auth.registration.views import (
+    RegisterView,
+    ResendEmailVerificationView,
+    VerifyEmailView
+)
 
 urlpatterns = [
-    path("api/", include("config.api_router")),
 
-    path('api/', include('backend.rest_auth.urls')),
     # URLs that do not require a session or valid token
-    # path('password/reset/', PasswordResetView.as_view(), name='rest_password_reset'),
-    # path('password/reset/confirm/', PasswordResetConfirmView.as_view(), name='rest_password_reset_confirm'),
-    # path('login/', LoginView.as_view(), name='rest_login'),
+    path('api/password/reset/', PasswordResetView.as_view(), name='rest_password_reset'),
+    path('api/password/reset/confirm/', PasswordResetConfirmView.as_view(), name='rest_password_reset_confirm'),
+    path('api/users/login/', LoginView.as_view(), name='rest_login'),
     # # URLs that require a user to be logged in with a valid session / token.
-    # path('logout/', LogoutView.as_view(), name='rest_logout'),
-    # path('user/', UserDetailsView.as_view(), name='rest_user_details'),
-    # path('password/change/', PasswordChangeView.as_view(), name='rest_password_change'),
+    path('api/logout/', LogoutView.as_view(), name='rest_logout'),
+    path('api/user/', UserDetailsView.as_view(), name='rest_user_details'),
+    path('api/password/change/', PasswordChangeView.as_view(), name='rest_password_change'),
 
-
-    path('api/registration/', include('backend.rest_auth.registration.urls')),
-    # path('', RegisterView.as_view(), name='rest_register'),
-    # path('verify-email/', VerifyEmailView.as_view(), name='rest_verify_email'),
-    # path('resend-email/', ResendEmailVerificationView.as_view(), name="rest_resend_email"),
-    # path('confirm-email/<key>/', VerifyEmailView.as_view(), name='email_verification_sent'),
+    # URLs with views located in rest_auth/registration
+    path('api/users/', RegisterView.as_view(), name='rest_register'),
+    path('api/resend-email/', ResendEmailVerificationView.as_view(), name="rest_resend_email"),
+    path('api/confirm-email/<key>/', VerifyEmailView.as_view(), name='email_verification_sent'),
 
 
     path('account/', include('allauth.urls')),
@@ -35,10 +44,6 @@ urlpatterns = [
     # path("api/auth-token/", obtain_auth_token),
     path('api/', include('backend.articles.urls', namespace='articles')),
     path('api/', include('backend.profiles.urls', namespace='profiles')),
-
-    # urls that don't perfectly adhere to realworld specs
-    # path('users/', RegistrationAPIView.as_view()), => now api/registration
-    # path('users/login/', LoginAPIView.as_view()), => now api/login
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

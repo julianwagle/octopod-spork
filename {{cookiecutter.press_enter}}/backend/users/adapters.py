@@ -17,7 +17,7 @@ class AccountAdapter(DefaultAccountAdapter):
         current_site = f'https://{{cookiecutter.domain_name}}'
         if ENVIRONEMT == 'local':
             current_site = 'http://0.0.0.0:8000'
-        return f'{current_site}/api/registration/confirm-email/{emailconfirmation.key}/'
+        return f'{current_site}/api/confirm-email/{emailconfirmation.key}/'
 
 
 class SocialAccountAdapter(DefaultSocialAccountAdapter):

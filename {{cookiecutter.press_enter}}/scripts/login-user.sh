@@ -20,5 +20,5 @@ cat 'users.txt' | while read l; do
   echo "$email"
   echo "$password1"
   USER='{"email": "'$email'", "password": "'$password1'"}'
-  curl -H "Content-type: application/json" -X POST -d "$USER" http://localhost:8000/api/login/
+  curl -H "Content-type: application/json" -X POST -d "$USER" http://localhost:8000/api/users/login/
 done
