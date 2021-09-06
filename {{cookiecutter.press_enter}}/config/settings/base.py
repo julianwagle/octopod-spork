@@ -296,23 +296,27 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'backend.core.exceptions.core_exception_handler',
-    'NON_FIELD_ERRORS_KEY': 'error',
+    'EXCEPTION_HANDLER': 'backend.core.exceptions.core_exception_handler', # REALWORLD
+    'NON_FIELD_ERRORS_KEY': 'error', # REALWORLD
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-        # 'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        'backend.apps.authentication.backends.JWTAuthentication', # REALWORLD
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 20,
+    'PAGE_SIZE': 20, # REALWORLD
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ( # REALWORLD
+    '0.0.0.0:3000', # REALWORLD
+    'localhost:3000', # REALWORLD
+) # REALWORLD
 
 REST_SESSION_LOGIN = True
 REST_USE_JWT = True
@@ -320,5 +324,6 @@ JWT_AUTH_COOKIE = 'auth'
 SWAGGER_SETTINGS = {'LOGIN_URL': 'login', 'LOGOUT_URL': 'logout', }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # Your stuff...
 # ------------------------------------------------------------------------------

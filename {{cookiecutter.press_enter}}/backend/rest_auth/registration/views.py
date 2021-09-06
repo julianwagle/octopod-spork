@@ -30,9 +30,7 @@ from backend.rest_auth.views import LoginView
 
 from .app_settings import RegisterSerializer, register_permission_classes
 
-REPEAT_PWORD=settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE
-
-if REPEAT_PWORD:
+if settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE:
     sensitive_post_parameters_m = method_decorator(
         sensitive_post_parameters('password1', 'password2'),
     )

@@ -19,9 +19,6 @@ try:
 except ImportError:
     raise ImportError('allauth needs to be added to INSTALLED_APPS.')
 
-REPEAT_PWORD=settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE
-
-
 class SocialAccountSerializer(serializers.ModelSerializer):
     """
     serialize allauth SocialAccounts for use with a REST API
@@ -201,7 +198,7 @@ class RegisterSerializer(serializers.Serializer):
         required=allauth_settings.USERNAME_REQUIRED,
     )
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
-    if REPEAT_PWORD:
+    if settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE:
         password1 = serializers.CharField(write_only=True)
         password2 = serializers.CharField(write_only=True)
     else:
@@ -224,7 +221,7 @@ class RegisterSerializer(serializers.Serializer):
         return get_adapter().clean_password(password)
 
     def validate(self, data):
-        if REPEAT_PWORD:
+        if settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE:
             if data['password1'] != data['password2']:
                 raise serializers.ValidationError(_("The two password fields didn't match."))
         return data
@@ -233,38 +230,28 @@ class RegisterSerializer(serializers.Serializer):
         pass
 
     def get_cleaned_data(self):
-        if REPEAT_PWORD:
-            return {
+        cleaned_data = {
                 'username': self.validated_data.get('username', ''),
-                'password1': self.validated_data.get('password1', ''),
                 'email': self.validated_data.get('email', ''),
             }
+        if settings.ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE:
+            cleaned_data['password1'] = self.validated_data.get('password1', '')
         else:
-            return {
-                'username': self.validated_data.get('username', ''),
-                'password1': self.validated_data.get('password', ''), # NRPASS1
-                'email': self.validated_data.get('email', ''),
-            }
+            cleaned_data['password1'] = self.validated_data.get('password', '')
+        return cleaned_data
 
     def save(self, request):
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
         user = adapter.save_user(request, user, self, commit=False)
-        if REPEAT_PWORD:
-            try:
-                adapter.clean_password(self.cleaned_data['password1'], user=user)
-            except DjangoValidationError as exc:
-                raise serializers.ValidationError(
-                    detail=serializers.as_serializer_error(exc)
-                )
-        else:
-            try:
-                adapter.clean_password(self.cleaned_data['password1'], user=user) # NRPASS1
-            except DjangoValidationError as exc:
-                raise serializers.ValidationError(
-                    detail=serializers.as_serializer_error(exc)
-                )
+        try:
+            adapter.clean_password(self.cleaned_data['password1'], user=user)
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(
+                detail=serializers.as_serializer_error(exc)
+            )
+
         user.save()
         self.custom_signup(request, user)
         setup_user_email(request, user, [])
