@@ -313,7 +313,7 @@ REST_FRAMEWORK = {
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"
 CORS_ORIGIN_WHITELIST = (
-    'https://{{cookiecutter.domain_name}}'
+    'https://{{cookiecutter.domain_name}}',
     'http://0.0.0.0:3000',
     'http://localhost:3000',
 )
