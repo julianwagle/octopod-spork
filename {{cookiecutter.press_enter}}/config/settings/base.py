@@ -289,11 +289,10 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_ADAPTER = "backend.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "backend.users.adapters.SocialAccountAdapter"
-# personal pet peeves
+# Personal Pet Peeves
 LOGOUT_ON_PASSWORD_CHANGE = False
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-# working on fixing this so itll work both ways ..
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
 # django-rest-framework
 # -------------------------------------------------------------------------------

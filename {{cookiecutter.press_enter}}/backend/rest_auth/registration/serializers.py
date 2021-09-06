@@ -242,7 +242,7 @@ class RegisterSerializer(serializers.Serializer):
         else:
             return {
                 'username': self.validated_data.get('username', ''),
-                'password': self.validated_data.get('password', ''),
+                'password1': self.validated_data.get('password', ''), # NRPASS1
                 'email': self.validated_data.get('email', ''),
             }
 
@@ -260,7 +260,7 @@ class RegisterSerializer(serializers.Serializer):
                 )
         else:
             try:
-                adapter.clean_password(self.cleaned_data['password'], user=user)
+                adapter.clean_password(self.cleaned_data['password1'], user=user) # NRPASS1
             except DjangoValidationError as exc:
                 raise serializers.ValidationError(
                     detail=serializers.as_serializer_error(exc)
