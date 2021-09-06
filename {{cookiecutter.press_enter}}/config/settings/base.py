@@ -320,6 +320,7 @@ CORS_ORIGIN_WHITELIST = (
 
 # django rest authentication
 # -------------------------------------------------------------------------------
-REST_SESSION_LOGIN = True # DJREST
-REST_USE_JWT = True # DJREST
-JWT_AUTH_COOKIE = 'auth' # DJREST
+REST_SESSION_LOGIN = True 
+REST_USE_JWT = True 
+JWT_AUTH_COOKIE = 'auth-cookie'
+JWT_AUTH_REFRESH_COOKIE = 'auth-refresh-cookie'
