@@ -293,37 +293,33 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
 
-
 # django-rest-framework
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'backend.core.exceptions.core_exception_handler', # REALWORLD
-    'NON_FIELD_ERRORS_KEY': 'error', # REALWORLD
+    'EXCEPTION_HANDLER': 'backend.core.exceptions.core_exception_handler',
+    'NON_FIELD_ERRORS_KEY': 'error',
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication", # DJREST # COOKIE
-        "rest_framework.authentication.TokenAuthentication", # DJREST # COOKIE
-        'backend.rest_auth.jwt_auth.JWTCookieAuthentication', # DJREST
-        # 'backend.users.backends.JWTAuthentication', # REALWORLD
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        'backend.rest_auth.jwt_auth.JWTCookieAuthentication',
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",), # COOKIE
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema', # DJREST
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 20, # REALWORLD
+    'PAGE_SIZE': 20,
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
-CORS_URLS_REGEX = r"^/api/.*$" # COOKIE
-CORS_ORIGIN_WHITELIST = ( # REALWORLD
-    'http://0.0.0.0:3000', # REALWORLD
-    'http://localhost:3000', # REALWORLD
+CORS_URLS_REGEX = r"^/api/.*$"
+CORS_ORIGIN_WHITELIST = (
+    'https://{{cookiecutter.domain_name}}'
+    'http://0.0.0.0:3000',
+    'http://localhost:3000',
 )
 
+# django rest authentication
+# -------------------------------------------------------------------------------
 REST_SESSION_LOGIN = True # DJREST
 REST_USE_JWT = True # DJREST
 JWT_AUTH_COOKIE = 'auth' # DJREST
-SWAGGER_SETTINGS = {'LOGIN_URL': 'login', 'LOGOUT_URL': 'logout', } # DJREST
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField' # DJREST
-
-# Your stuff...
-# ------------------------------------------------------------------------------
