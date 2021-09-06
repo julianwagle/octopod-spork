@@ -65,7 +65,11 @@ class RegisterView(CreateAPIView):
             return TokenSerializer(user.auth_token, context=self.get_serializer_context()).data
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        try:
+            user = request.data['user']
+        except:
+            user = request.data
+        serializer = self.get_serializer(data=user)
         serializer.is_valid(raise_exception=True)
         user = self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
