@@ -301,24 +301,23 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'backend.core.exceptions.core_exception_handler', # REALWORLD
     'NON_FIELD_ERRORS_KEY': 'error', # REALWORLD
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication", # DJREST
-        "rest_framework.authentication.TokenAuthentication", # DJREST
+        "rest_framework.authentication.SessionAuthentication", # DJREST # COOKIE
+        "rest_framework.authentication.TokenAuthentication", # DJREST # COOKIE
         'backend.rest_auth.jwt_auth.JWTCookieAuthentication', # DJREST
         # 'backend.users.backends.JWTAuthentication', # REALWORLD
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",), # COOKIE
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema', # DJREST
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20, # REALWORLD
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
-CORS_URLS_REGEX = r"^/api/.*$"
-CORS_ALLOW_CREDENTIALS = True
+CORS_URLS_REGEX = r"^/api/.*$" # COOKIE
 CORS_ORIGIN_WHITELIST = ( # REALWORLD
     'http://0.0.0.0:3000', # REALWORLD
     'http://localhost:3000', # REALWORLD
-) # REALWORLD
+)
 
 REST_SESSION_LOGIN = True # DJREST
 REST_USE_JWT = True # DJREST
