@@ -45,6 +45,7 @@ services:
       - production_traefik:/etc/traefik/acme:z
     ports:
       - "0.0.0.0:80:80"
+      - "0.0.0.0:3000"
       - "0.0.0.0:443:443"
       - "0.0.0.0:5555:5555"
 
@@ -65,3 +66,21 @@ services:
     <<: *django
     image: backend_production_flower
     command: /start-flower
+
+  node:
+    build:
+      context: .
+      dockerfile: ./compose/production/node/Dockerfile
+    image: frontend_production_node
+    container_name: node
+    depends_on:
+      - django
+    volumes:
+      - .:/app/:z
+      # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+      - /app/frontend/node_modules
+    command: npm start
+    ports:
+      - "3000:3000"
+      # Expose browsersync UI: https://www.browsersync.io/docs/options/#option-ui
+      - "3001:3001"

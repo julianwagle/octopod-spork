@@ -1,5 +1,14 @@
 ARG PYTHON_VERSION=3.9-slim-buster
 
+FROM node:14-stretch-slim as client-builder
+ARG APP_HOME=/app
+WORKDIR ${APP_HOME}/frontend
+COPY ./frontend/package.json ${APP_HOME}
+RUN npm install && npm cache clean --force
+COPY . ${APP_HOME}
+RUN npm run build
+
+
 # define an alias for the specfic python version used in this file.
 FROM python:${PYTHON_VERSION} as python
 
@@ -88,7 +97,7 @@ RUN chmod +x /start-flower
 
 
 # copy application code to WORKDIR
-COPY --chown=django:django . ${APP_HOME}
+COPY --from=client-builder --chown=django:django ${APP_HOME} ${APP_HOME}
 
 # make django owner of the WORKDIR directory as well.
 RUN chown django:django ${APP_HOME}

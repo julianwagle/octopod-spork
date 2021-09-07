@@ -18,6 +18,10 @@ entryPoints:
   flower:
     address: ":5555"
 
+  node:
+    address: ":30"
+
+
 certificatesResolvers:
   letsencrypt:
     # https://docs.traefik.io/master/https/acme/#lets-encrypt
@@ -54,6 +58,16 @@ http:
         # https://docs.traefik.io/master/routing/routers/#certresolver
         certResolver: letsencrypt
 
+    node-secure-router:
+      rule: "Host(`{{ cookiecutter.domain_name }}`)"
+      entryPoints:
+        - node
+      service: node
+      tls:
+        # https://docs.traefik.io/master/routing/routers/#certresolver
+        certResolver: letsencrypt
+
+
   middlewares:
     csrf:
       # https://docs.traefik.io/master/middlewares/headers/#hostsproxyheaders
@@ -71,6 +85,11 @@ http:
       loadBalancer:
         servers:
           - url: http://flower:5555
+
+    node:
+      loadBalancer:
+        servers:
+          - url: http://node:3000
 
 providers:
   # https://docs.traefik.io/master/providers/file/
